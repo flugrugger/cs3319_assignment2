@@ -1,0 +1,47 @@
+USE rhakimjaassign2db;
+
+-- Query 1
+SELECT description FROM product;
+
+-- Query 2
+SELECT DISTINCT city FROM customer;
+
+-- Query 3
+SELECT * FROM agent ORDER BY city;
+
+-- Query 4
+SELECT firstname, lastname FROM customer WHERE city = 'Springfield';
+
+-- Query 5
+SELECT lastname FROM customer WHERE agentid IN (SELECT agentid FROM agent WHERE firstname = 'Regis');
+
+-- Query 6
+SELECT description FROM product WHERE description LIKE "%pad%" OR description LIKE "%Pad%";
+
+-- Query 7
+SELECT customer.lastname, description, quantitypurchased FROM customer, product, purchases WHERE customer.customerid = purchases.customerid AND product.productid = purchases.productid;
+
+-- Query 8
+SELECT SUM(quantitypurchased) AS "Homer's Total Purchases"  FROM purchases WHERE customerid IN (SELECT customerid FROM customer WHERE firstname = "Homer");
+
+-- Query 9
+SELECT firstname, lastname, SUM(quantitypurchased) FROM purchases, customer WHERE customer.customerid = purchases.customerid GROUP BY customer.customerid;
+
+-- Query 10
+SELECT description, quantityinstock FROM product WHERE productid NOT IN (SELECT productid FROM purchases);
+
+-- Query 11
+SELECT description, quantityinstock FROM product WHERE productid NOT IN (SELECT productid FROM purchases WHERE customerid IN (SELECT customerid FROM customer WHERE firstname = "Fred" AND lastname = "Flintstone"));
+
+-- Query 12
+SELECT customer.firstname, customer.lastname, agent.firstname, agent.lastname FROM customer, agent WHERE customer.city = agent.city;
+
+-- Query 13
+SELECT SUM(quantitypurchased) AS "Knee Pads Purchased" FROM purchases WHERE productid IN (SELECT productid FROM product WHERE description = "Knee Pads");
+
+-- Query 14
+SELECT product.description, COUNT(*) AS numberofcustomers FROM product, purchases WHERE product.productid = purchases.productid GROUP BY purchases.productid HAVING numberofcustomers > 3;
+
+-- Query 15
+SELECT firstname, lastname FROM agent WHERE agentid IN (SELECT agentid FROM customer WHERE customerid IN (SELECT customerid FROM purchases WHERE productid IN (SELECT productid FROM product WHERE description = "Knee Pads")));
+

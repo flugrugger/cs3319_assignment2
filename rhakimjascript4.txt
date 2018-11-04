@@ -1,0 +1,28 @@
+USE rhakimjaassign2db;
+
+SELECT * FROM product;
+
+SELECT * FROM agent;
+
+SELECT * FROM customer;
+
+SELECT * FROM purchases;
+
+-- Creating a view with customer first and last name, description of product purchased, the quantity of that product purchsed, the cost of each item, and the total cost of purchasing those items.
+CREATE VIEW customerPurchases AS SELECT firstname, lastname, description, quantitypurchased, costperitem, quantitypurchased * costperitem AS 'total' FROM customer, purchases, product WHERE customer.customerid = purchases.customerid AND product.productid = purchases.productid ORDER BY lastname;
+
+SELECT * FROM customerPurchases;
+
+--Selecting only the rows from the view where the customer spent more than 100 dollars on a particular product.
+SELECT * FROM customerPurchases WHERE total > 100;
+
+DELETE FROM product WHERE description = 'Shin guard';
+
+SELECT * FROM product;
+
+DELETE FROM agent WHERE city = 'Springfield';
+
+-- There is one agent who is from Springfield, Hugh Grant. It does NOT allow deleting this row from the agent table because
+-- Hugh Grant (agentid = 99) deals with three customers (Monty Burns, Peter Griffens, and Homer Simpson) and is therefore referenced
+-- in the customer table as a foreign key. Therefore, I cannot delete this row because it is referenced as a foreign key in the customer table.
+

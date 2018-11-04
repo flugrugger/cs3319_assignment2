@@ -1,0 +1,102 @@
+USE rhakimjaassign2db;
+
+-- Loading data into product table.
+LOAD DATA LOCAL INFILE 'loaddatafall2018.txt' INTO TABLE product FIELDS TERMINATED BY ',';
+
+SELECT * FROM product;
+
+INSERT INTO product (productid,description,costperitem,quantityinstock) VALUES ('66', 'Elbow pads', 14.25, 120);
+
+INSERT INTO product (productid,description,costperitem,quantityinstock) VALUES ('98', 'Shin guard', 9.88, 16);
+
+-- Inserting data into agent table.
+INSERT INTO agent (agentid, firstname, lastname, city, commissionpercentage) VALUES ('99', 'Hugh', 'Grant', 'Springfield', 16);
+
+INSERT INTO agent (agentid, firstname, lastname, city, commissionpercentage) VALUES ('22', 'Courtney', 'Cox', 'New York', 25);
+
+INSERT INTO agent (agentid, firstname, lastname, city, commissionpercentage) VALUES ('66', 'Rosie', 'ODonnell', 'Ottawa', 100);
+
+INSERT INTO agent (agentid, firstname, lastname, city, commissionpercentage) VALUES ('33', 'David', 'Letterman', 'Bedrock', 100);
+
+INSERT INTO agent (agentid, firstname, lastname, city, commissionpercentage) VALUES ('11', 'Regis', 'Philbin', 'Boston', 33);
+
+INSERT INTO agent (agentid, firstname, lastname, city, commissionpercentage) VALUES ('12', 'Rosie', 'Cox', 'Ottawa', 50);
+
+INSERT INTO agent (agentid, firstname, lastname, city, commissionpercentage) VALUES ('45', 'Ramtin', 'Hakimjavadi', 'Richmond Hill', 100);
+
+-- Inserting data into customer table.
+INSERT INTO customer (customerid, firstname, lastname, city, phonenumber) VALUES ('21', 'Homer', 'Simpson', 'Springfield', '686-8956');
+
+INSERT INTO customer (customerid, firstname, lastname, city, phonenumber) VALUES ('31', 'Sideshow', 'Bob', 'Springfield', '686-5555');
+
+INSERT INTO customer (customerid, firstname, lastname, city, phonenumber) VALUES ('12', 'Monty', 'Burns', 'Springfield', '789-0000');
+
+INSERT INTO customer (customerid, firstname, lastname, city, phonenumber) VALUES ('15', 'Fred', 'Flintstone', 'Bedrock', '777-2345');
+
+INSERT INTO customer (customerid, firstname, lastname, city, phonenumber) VALUES ('13', 'Super', 'Man', 'Kypto', '888-1234');
+
+INSERT INTO customer (customerid, firstname, lastname, city, phonenumber) VALUES ('10', 'Barney', 'Rubble', 'Bedrock', '777-1234');
+
+INSERT INTO customer (customerid, firstname, lastname, city, phonenumber) VALUES ('14', 'Peter', 'Griffens', 'Providence', '987-4567');
+
+-- Inserting data into purchases table.
+INSERT INTO purchases (customerid, productid, quantitypurchased) VALUES ('21', '99', 20);
+
+INSERT INTO purchases (customerid, productid, quantitypurchased) VALUES ('21', '12', 14);
+
+INSERT INTO purchases (customerid, productid, quantitypurchased) VALUES ('21', '66', 10);
+
+INSERT INTO purchases (customerid, productid, quantitypurchased) VALUES ('31', '99', 1);
+
+INSERT INTO purchases (customerid, productid, quantitypurchased) VALUES ('31', '12', 2);
+
+INSERT INTO purchases (customerid, productid, quantitypurchased) VALUES ('31', '78', 4);
+
+INSERT INTO purchases (customerid, productid, quantitypurchased) VALUES ('31', '66', 2);
+
+INSERT INTO purchases (customerid, productid, quantitypurchased) VALUES ('15', '66', 2);
+
+INSERT INTO purchases (customerid, productid, quantitypurchased) VALUES ('15', '78', 2);
+
+INSERT INTO purchases (customerid, productid, quantitypurchased) VALUES ('14', '66', 19);
+
+-- Updating customer data to include agent that deals with them.
+UPDATE customer SET agentid = '99' WHERE customerid = '21';
+
+UPDATE customer SET agentid = '99' WHERE customerid = '12';
+
+UPDATE customer SET agentid = '99' WHERE customerid = '14';
+
+UPDATE customer SET agentid = '33' WHERE customerid = '13';
+
+UPDATE customer SET agentid = '11' WHERE customerid = '10';
+
+UPDATE customer SET agentid = '11' WHERE customerid = '15';
+
+UPDATE customer SET agentid = '66' WHERE customerid = '31';
+
+SELECT * FROM product;
+
+SELECT * FROM agent;
+
+SELECT * FROM customer;
+
+SELECT * FROM purchases;
+
+-- Updating customer data so that Super Man becomes Wonder Woman
+UPDATE customer SET firstname = 'Wonder', lastname = 'Woman' WHERE firstname = 'Super' AND lastname = 'Man';
+
+-- Updating purchasing data so that all purchases made by Sideshow Bob were of a quantity of 5
+UPDATE purchases SET quantitypurchased = 5 WHERE customerid IN (SELECT customerid FROM customer WHERE firstname = 'Sideshow' AND lastname = 'Bob');
+
+-- Updating customer data so that all customers dealt by Regis come from Boston
+UPDATE customer SET city = 'Boston' WHERE agentid IN (SELECT agentid FROM agent WHERE firstname = "Regis");
+
+SELECT * FROM product;
+
+SELECT * FROM agent;
+
+SELECT * FROM customer;
+
+SELECT * FROM purchases;
+

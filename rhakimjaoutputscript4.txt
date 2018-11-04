@@ -1,0 +1,56 @@
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1050 (42S01) at line 12: Table 'customerPurchases' already exists
+--------------
+SELECT * FROM product
+--------------
+
+productid	description	costperitem	quantityinstock
+11	Bike	150	200
+12	Socks	2	100
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM agent
+--------------
+
+agentid	firstname	lastname	commissionpercentage	city
+11	Regis	Philbin	33	Boston
+12	Rosie	Cox	50	Ottawa
+22	Courtney	Cox	25	New York
+33	David	Letterman	100	Bedrock
+45	Ramtin	Hakimjavadi	100	Richmond Hill
+66	Rosie	ODonnell	100	Ottawa
+99	Hugh	Grant	16	Springfield
+--------------
+SELECT * FROM customer
+--------------
+
+customerid	agentid	firstname	lastname	city	phonenumber
+10	11	Barney	Rubble	Boston	777-1234
+12	99	Monty	Burns	Springfield	789-0000
+13	33	Wonder	Woman	Kypto	888-1234
+14	99	Peter	Griffens	Providence	987-4567
+15	11	Fred	Flintstone	Boston	777-2345
+21	99	Homer	Simpson	Springfield	686-8956
+31	66	Sideshow	Bob	Springfield	686-5555
+--------------
+SELECT * FROM purchases
+--------------
+
+customerid	productid	quantitypurchased
+14	66	19
+15	66	2
+15	78	2
+21	12	14
+21	66	10
+21	99	20
+31	12	5
+31	66	5
+31	78	5
+31	99	5
+--------------
+CREATE VIEW customerPurchases AS SELECT firstname, lastname, description, quantitypurchased, costperitem, quantitypurchased * costperitem AS 'total' FROM customer, purchases, product WHERE customer.customerid = purchases.customerid AND product.productid = purchases.productid ORDER BY lastname
+--------------
+
