@@ -25,4 +25,4 @@ DELETE FROM agent WHERE city = 'Springfield';
 -- There is one agent who is from Springfield, Hugh Grant. It does NOT allow deleting this row from the agent table because
 -- Hugh Grant (agentid = 99) deals with three customers (Monty Burns, Peter Griffens, and Homer Simpson) and is therefore referenced
 -- in the customer table as a foreign key. Therefore, I cannot delete this row because it is referenced as a foreign key in the customer table.
-
+-- In other words, you cannot delete a parent row.
