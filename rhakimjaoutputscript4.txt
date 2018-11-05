@@ -1,5 +1,5 @@
 Warning: Using a password on the command line interface can be insecure.
-ERROR 1050 (42S01) at line 12: Table 'customerPurchases' already exists
+ERROR 1064 (42000) at line 16: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--Selecting only the rows from the view where the customer spent more than 100 d' at line 1
 --------------
 SELECT * FROM product
 --------------
@@ -10,6 +10,7 @@ productid	description	costperitem	quantityinstock
 66	Elbow pads	14.25	120
 78	Knee Pads	12.15	70
 88	Roller Blades	75	89
+98	Shin guard	9.88	16
 99	Helmet	29	30
 --------------
 SELECT * FROM agent
@@ -52,5 +53,25 @@ customerid	productid	quantitypurchased
 31	99	5
 --------------
 CREATE VIEW customerPurchases AS SELECT firstname, lastname, description, quantitypurchased, costperitem, quantitypurchased * costperitem AS 'total' FROM customer, purchases, product WHERE customer.customerid = purchases.customerid AND product.productid = purchases.productid ORDER BY lastname
+--------------
+
+--------------
+SELECT * FROM customerPurchases
+--------------
+
+firstname	lastname	description	quantitypurchased	costperitem	total
+Sideshow	Bob	Socks	5	2	10
+Sideshow	Bob	Elbow pads	5	14.25	71.25
+Sideshow	Bob	Knee Pads	5	12.15	60.74999809265137
+Sideshow	Bob	Helmet	5	29	145
+Fred	Flintstone	Elbow pads	2	14.25	28.5
+Fred	Flintstone	Knee Pads	2	12.15	24.299999237060547
+Peter	Griffens	Elbow pads	19	14.25	270.75
+Homer	Simpson	Socks	14	2	28
+Homer	Simpson	Elbow pads	10	14.25	142.5
+Homer	Simpson	Helmet	20	29	580
+--------------
+--Selecting only the rows from the view where the customer spent more than 100 dollars on a particular product.
+SELECT * FROM customerPurchases WHERE total > 100
 --------------
 
