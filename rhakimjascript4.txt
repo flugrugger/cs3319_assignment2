@@ -13,7 +13,7 @@ CREATE VIEW customerPurchases AS SELECT firstname, lastname, description, quanti
 
 SELECT * FROM customerPurchases;
 
---Selecting only the rows from the view where the customer spent more than 100 dollars on a particular product.
+-- Selecting only the rows from the view where the customer spent more than 100 dollars on a particular product.
 SELECT * FROM customerPurchases WHERE total > 100;
 
 DELETE FROM product WHERE description = 'Shin guard';

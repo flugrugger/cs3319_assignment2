@@ -1,5 +1,5 @@
 Warning: Using a password on the command line interface can be insecure.
-ERROR 1064 (42000) at line 16: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--Selecting only the rows from the view where the customer spent more than 100 d' at line 1
+ERROR 1451 (23000) at line 23: Cannot delete or update a parent row: a foreign key constraint fails (`rhakimjaassign2db`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`agentid`) REFERENCES `agent` (`agentid`))
 --------------
 SELECT * FROM product
 --------------
@@ -71,7 +71,30 @@ Homer	Simpson	Socks	14	2	28
 Homer	Simpson	Elbow pads	10	14.25	142.5
 Homer	Simpson	Helmet	20	29	580
 --------------
---Selecting only the rows from the view where the customer spent more than 100 dollars on a particular product.
 SELECT * FROM customerPurchases WHERE total > 100
+--------------
+
+firstname	lastname	description	quantitypurchased	costperitem	total
+Sideshow	Bob	Helmet	5	29	145
+Peter	Griffens	Elbow pads	19	14.25	270.75
+Homer	Simpson	Elbow pads	10	14.25	142.5
+Homer	Simpson	Helmet	20	29	580
+--------------
+DELETE FROM product WHERE description = 'Shin guard'
+--------------
+
+--------------
+SELECT * FROM product
+--------------
+
+productid	description	costperitem	quantityinstock
+11	Bike	150	200
+12	Socks	2	100
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+DELETE FROM agent WHERE city = 'Springfield'
 --------------
 
